@@ -10,34 +10,43 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table (name = "tb_categoria")
+@Table(name = "tb_categoria")
 public class Muskin {
+	
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
-	private long id;
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
 	@NotBlank(message = "A categoria é um dado obrigatório.")
-	@Size(min = 10, max =50, message = "A categoria precisa ter no mínimo 10 caracteres e no máximo 50.")
+	@Size(min = 10, max = 50, message = "A categoria precisa ter no mínimo 10 caracteres e no máximo 50.")
 	private String categoria;
+	
 	@NotNull
 	@Size(min = 10, max = 500, message = "A descrição tem que ter no mínimo 10 caracteres e no máximo 500")
 	private String descricao;
-	public long getId() {
+
+	public Long getId() {
 		return id;
 	}
-	public void setId(long id) {
+
+	public void setId(Long id) {
 		this.id = id;
 	}
+
 	public String getCategoria() {
 		return categoria;
 	}
+
 	public void setCategoria(String categoria) {
 		this.categoria = categoria;
 	}
+
 	public String getDescricao() {
 		return descricao;
 	}
+
 	public void setDescricao(String descricao) {
 		this.descricao = descricao;
 	}
-	
+
 }
