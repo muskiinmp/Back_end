@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import com.generation.muskin.model.Produto;
+import com.generation.muskin.repository.CategoriaRepository;
 import com.generation.muskin.repository.ProdutoRepository;
 
 @RestController
@@ -42,13 +43,13 @@ public ResponseEntity<Produto> getById (@PathVariable Long id){
 			.orElse(ResponseEntity.notFound().build());	
 }
 
-@GetMapping("/produtos/{nome}")
+@GetMapping("/nome/{nome}")
 public ResponseEntity <List<Produto>> getByNome (@PathVariable String nome){
 	return ResponseEntity.ok(produtoRepository.findAllByNomeContainingIgnoreCase(nome));
 }
 
 @PostMapping
-public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto)
+public ResponseEntity<Produto> postProduto(@Valid @RequestBody Produto produto){
 	return categoriaRepository.findById (produto.getCategoria().getId())
 			.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(produtoRepository.save(produto)))
 			.orElse(ResponseEntity.badRequest().build());
@@ -61,6 +62,7 @@ public ResponseEntity<Produto> putProduto(@Valid @RequestBody Produto produto){
 				.map(resposta -> ResponseEntity.status(HttpStatus.OK).body(produtoRepository.save(produto)))
 				.orElse(ResponseEntity.badRequest().build());
 	}
+	return ResponseEntity.notFound().build();
 }
 	
 @DeleteMapping("/{id}")
