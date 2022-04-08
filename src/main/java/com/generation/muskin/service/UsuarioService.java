@@ -52,11 +52,11 @@ public class UsuarioService {
 				
 				usuarioLogin.get().setId(buscarUsuario.get().getId());
 				usuarioLogin.get().setNome(buscarUsuario.get().getNome());
-				usuarioLogin.get().setSenha(buscarUsuario.get().getSenha());
 				usuarioLogin.get().setFoto(buscarUsuario.get().getFoto());
 				usuarioLogin.get().setDataNascimento(buscarUsuario.get().getDataNascimento());
 				usuarioLogin.get().setToken(gerarBasicToken(usuarioLogin.get().getUsuario(), usuarioLogin.get().getSenha()));
-				
+				usuarioLogin.get().setSenha(buscarUsuario.get().getSenha());
+
 				return usuarioLogin;
 			}
 		}

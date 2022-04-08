@@ -25,8 +25,7 @@ public class Categoria {
 	@NotBlank(message = "A categoria é um dado obrigatório.")
 	@Size(max = 50, message = "A categoria precisa ter no mínimo 10 caracteres e no máximo 50.")
 	private String categoria;
-	
-	@NotBlank
+
 	@Size(max = 500, message = "A descrição tem que ter no mínimo 10 caracteres e no máximo 500")
 	private String descricao;
 
