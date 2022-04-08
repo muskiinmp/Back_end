@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import com.generation.muskin.model.Usuario;
+import com.generation.muskin.model.UsuarioLogin;
 import com.generation.muskin.repository.UsuarioRepository;
+import com.generation.muskin.service.UsuarioService;
 
 @RestController
 @RequestMapping ("/usuarios")
@@ -30,6 +32,25 @@ public class UsuarioController {
 	
 	@Autowired 
 	private UsuarioRepository usuarioRepository;
+	
+	@Autowired
+	private UsuarioService usuarioService;
+	
+	@PostMapping("/login")
+	public ResponseEntity<UsuarioLogin> login(@RequestBody Optional<UsuarioLogin> usuarioLogin) {
+		
+		return usuarioService.autenticarUsuario(usuarioLogin)
+				.map(resposta -> ResponseEntity.ok(resposta))
+				.orElse(ResponseEntity.status(HttpStatus.UNAUTHORIZED).build());		
+	}
+	
+	@PostMapping("/cadastrar")
+	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
+		
+		return usuarioService.cadastrarUsuario(usuario)
+				.map(resposta -> ResponseEntity.status(HttpStatus.CREATED).body(resposta))
+				.orElse(ResponseEntity.badRequest().build());
+	}
 	
 	@GetMapping 
 	public ResponseEntity <List <Usuario>> getAll() {
@@ -53,9 +74,9 @@ public class UsuarioController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(usuarioRepository.save(usuario));
 	}
 	
-	@PutMapping
+	@PutMapping("/atualizar")
 	public ResponseEntity <Usuario> putUsuario (@Valid @RequestBody Usuario usuario){
-		return usuarioRepository.findById(usuario.getId())
+		return usuarioService.atualizarUsuario(usuario)
 				.map(resposta -> ResponseEntity.ok (usuarioRepository.save(usuario)))
 				.orElse(ResponseEntity.notFound().build());
 	}

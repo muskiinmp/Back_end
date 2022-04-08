@@ -30,7 +30,7 @@ private ProdutoRepository produtoRepository;
 private CategoriaRepository categoriaRepository;
 
 
-@GetMapping
+@GetMapping("/todos")
 public ResponseEntity<List<Produto>> getAll(){
 	return ResponseEntity.ok(produtoRepository.findAll());	
 }
