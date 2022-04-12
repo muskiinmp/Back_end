@@ -29,7 +29,7 @@ public class CategoriaController {
 	@Autowired
 	private CategoriaRepository repository;
 	
-	@GetMapping
+	@GetMapping ("/todos")
 	public ResponseEntity<List<Categoria>>getAll(){
 		return ResponseEntity.ok().body(repository.findAll());
 	}
