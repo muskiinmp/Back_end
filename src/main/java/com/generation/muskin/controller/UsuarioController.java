@@ -52,7 +52,7 @@ public class UsuarioController {
 				.orElse(ResponseEntity.badRequest().build());
 	}
 	
-	@GetMapping 
+	@GetMapping ("/todos")
 	public ResponseEntity <List <Usuario>> getAll() {
 		return ResponseEntity.ok(usuarioRepository.findAll());			
 	}
